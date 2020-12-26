@@ -1,7 +1,14 @@
 spring:
   kafka:
     bootstrap-servers: 'kafka:9092'
+    topics:
+      transactions: ${TRANSACTIONS_TOPIC:transactions}
+      reports: ${REPORTS_TOPIC:reports}
     consumer:
       group-id: kafka-processor
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.value.default.type: com.rbkmoney.service.TransactionRecord
     listener:
       ack-mode: manual
+      poll-timeout: 1000
