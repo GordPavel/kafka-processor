@@ -4,6 +4,8 @@ spring:
     topics:
       transactions: ${TRANSACTIONS_TOPIC:transactions}
       reports: ${REPORTS_TOPIC:reports}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
       group-id: kafka-processor
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer

@@ -10,12 +10,12 @@ private val log = getLogger(KafkaReportSender::class.java)
 
 @Service
 internal class KafkaReportSender(
-    private val kafkaTemplate: KafkaTemplate<String, String>,
+    private val kafkaTemplate: KafkaTemplate<String, TransactionReport>,
     @Value("\${spring.kafka.topics.reports}")
     private val reportsTopic: String,
 ) : ReportSender {
     override fun sendReport(report: TransactionReport) {
         log.trace("Send {} report to kafka {} topic", report, reportsTopic)
-        kafkaTemplate.send(reportsTopic, report.toString())
+        kafkaTemplate.send(reportsTopic, report).get()
     }
 }
