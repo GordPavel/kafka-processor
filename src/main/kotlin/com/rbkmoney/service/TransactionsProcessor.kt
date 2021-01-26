@@ -28,18 +28,17 @@ class TransactionsProcessor(
     }
 
     //    simplest report type resolver
-    private fun resolveReportTypeBy(transaction: TransactionRecord): ReportGenerator? {
-        val generator = reportsGenerators["simpleReportGenerator"]
-        log.debug("Have chosen {} report generator for {} transaction", generator, transaction)
-        return generator
-    }
+    private fun resolveReportTypeBy(transaction: TransactionRecord): ReportGenerator? =
+        reportsGenerators["simpleReportGenerator"]
+            .also {
+                log.debug("Have chosen {} report generator for {} transaction", it, transaction)
+            }
 
     //    simplest report type resolver
-    private fun resolveSenderTypeBy(transaction: TransactionRecord): ReportSender? {
-        val sender = reportsSenders["kafkaReportSender"]
-        log.debug("Have chosen {} report sender for {} transaction", sender, transaction)
-        return sender
-    }
+    private fun resolveSenderTypeBy(transaction: TransactionRecord): ReportSender? =
+        reportsSenders["kafkaReportSender"].also {
+            log.debug("Have chosen {} report sender for {} transaction", it, transaction)
+        }
 
 }
 
